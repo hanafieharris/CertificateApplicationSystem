@@ -1,12 +1,11 @@
 <?php 
-$hostname = 'localhost';
-$username =  'root';
-$password = '';
-$database = 'sppt';
+require_once('connection.php');
 
-$conn = mysqli_connect($hostname, $username, $password, $database) or die('connecting to MYSQL failed');
-
-
+if(isset($_POST) & !empty($_POST)){
+	print_r($_POST);
+	if(empty($_POST['noic']))
+	{ $noicerror[] = "IC NUMBER IS REQUIRED <br>";} 
+}
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -50,15 +49,13 @@ $conn = mysqli_connect($hostname, $username, $password, $database) or die('conne
 							 <h4 align="center">DAFTAR PELAJAR</h4>
 							 <hr />
                              <br />
-                                <form role="form">
+                                <form role="form" method="post">
+								<fieldset>
                                     <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
                                             <input type="text" name="noic" class="form-control" placeholder="No. Kad Pengenalan"  />
-                                     </div>
-									  
-									 <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-user"  ></i></span>
-                                            <input type="text" name="nama" class="form-control" placeholder="Nama Dalam Kad Pengenalan"  />
+											<?php if(isset ($noicerror) & !empty($noicerror))
+											{ echo $namaerror; } ?>
                                      </div>
                                      <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-key"  ></i></span>
@@ -74,6 +71,7 @@ $conn = mysqli_connect($hostname, $username, $password, $database) or die('conne
 									
                                     <hr />
 									<input type="submit" name="submit" class="btn btn-success"  value="Daftar"> <br><br>
+									</fieldset>
                                     </form>
                             </div>
                            

@@ -1,6 +1,23 @@
-﻿<?php
+<?php
 session_start();	
+require_once('connection.php');
+
+$sql = "SELECT * FROM pelajar WHERE noic = '".$_GET['noic']."'"; 
+$query=$conn->query($sql) or die ("ERROR: {conn->error}");
+$row = $query->fetch_assoc();
+
+$sql1 = "SELECT * FROM daftarpelajar WHERE noic = '".$_GET['noic']."'";
+$query1=$conn->query($sql1) or die ("ERROR: {conn->error}");
+$row1 = $query1->fetch_assoc();
+
+#$sql = "SELECT daftarpelajar.noic, daftarpelajar.psw, pelajar.noic, pelajar.nama, pelajar.kursus, pelajar.nopelajar, pelajar.notel, pelajar.emel, pelajar.alamat,
+#			pelajar.poskod, pelajar.daerah, pelajar.negeri  
+#				FROM pelajar
+#				INNER JOIN daftarpelajar ON pelajar.noic = daftarpelajar.noic";
+				
+
 ?>
+
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -70,13 +87,13 @@ session_start();
                 <ul class="nav" id="main-menu">
                     
 					<li>
-                           <a href="index.php"><i class="fa fa-desktop "></i>PAPAN MUKA</a>
+                           <a href="index2.php"><i class="fa fa-desktop "></i>PAPAN MUKA</a>
                     </li>
 					<li>
-                           <a href="info2.php"><i class="fa fa-desktop "></i>MAKLUMAT PERIBADI</a>
+                           <a href="senaraipengguna.php"><i class="fa fa-desktop "></i>SENARAI PENGGUNA</a>
                     </li>             
                     <li>
-                        <a href="permohonan.php"><i class="fa fa-desktop "></i>PERMOHONAN TRANSKRIP</a>
+                        <a href="senaraimaklumatpemohon.php"><i class="fa fa-desktop "></i>SENARAI MAKLUMAT</a>
                         
                     </li>
                      <!--<li>
@@ -84,10 +101,10 @@ session_start();
                          <ul class="nav nav-second-level">
                            -->
                              <li>
-                                <a href="semakmohon.php"><i class="fa fa-desktop "></i>STATUS PERMOHONAN</a>
+                                <a href="semakpermohonan.php"><i class="fa fa-desktop "></i>SEMAK PERMOHONAN</a>
                             </li>
 							<li>
-                        <a href="login.php"><i class="fa fa-sign-in " value=""> </i>LOG KELUAR <br> <?php echo '( ' . $_SESSION['User'];
+                        <a href="login.php"><i class="fa fa-sign-in "></i>LOG KELUAR <br> <?php echo '( ' . $_SESSION['User'];
 						?> <?php echo ')'?></a>
                     </li>
 							
@@ -101,51 +118,109 @@ session_start();
         <div id="page-wrapper">
             <div class="row">
                     <div class="col-md-12">
-					<h1 class="page-head-line">PAPAN MUKA</h1>
+	
                        
                     </div>
                 </div>
-			<div class="col-md-8">
-				<center><h1 >TATACARA PERMOHONAN SIJIL</h1>
-				 <img src="assets/img/Tatacara Penggunaan Sistem Sijil.jpg" alt="Service">
-				 </div>
-				 
-				<div class="col-md-4">
-                   <div class="panel panel-primary">				
-                       <div class="panel-heading">
-                            PERHATIAN
-                        </div>
+				<?php
+		$sql = "SELECT * FROM daftarpelajar WHERE noic = '".$_GET['noic']."'";
+		$result = $conn->query($sql); 
+		while($row = $result->fetch_assoc())
+		{
+		?>
+				<div class="col-md-6">
+                      <div class="panel panel-default">
+                       
 						
-                           <img src="assets/img/Nota Sistem Tuntutan Sijil.jpg" alt="Service" disabled>
-                       
-						<!--	
                         <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+						<h3 class="page-head-line">LOG MASUK PENGGUNA</h3>
+                                <form action="updateinfo.php" method="POST">
+                                  
+                                        <div class="form-group">
+                                            <label>NO. KAD PENGENALAN</label>
+                                            <input  name="noic" class="form-control" type="text" value="<?php echo $row['noic']?>">               
+                                        </div>
+										<div class="form-group">
+                                            <label>PASSWORD</label>
+                                            <input name="psw" class="form-control" type="text"  value="<?php echo $row['psw']?>">
+                                        </div>
+										
+										
+								
+                               
+                                       
+
+                                    
+                          </div>
+						  
+        <!-- /. PAGE WRAPPER  -->
+		</div>
+		<center>  <input  type="submit"  value="SIMPAN" class="btn btn-success">
+		</form>
+	</div>
+	    		<?php
+		}
+		
+		?>
+    <!-- /. WRAPPER  -->
+
+	
+                    <div class="col-md-6">
+                         <div class="panel panel-default">
+        <?php
+		$sql = "SELECT * FROM pelajar WHERE noic = '".$_GET['noic']."'";
+		$result = $conn->query($sql); 
+		while($row = $result->fetch_assoc())
+		{
+		?>
+                        <div class="panel-body">
+                           <h3 class="page-head-line">MAKLUMAT PENGGUNA</h3>
+							
+							<!--<div class="form-group">
+                                                <label for="disabledInput">NO. KAD PENGENALAN</label>
+                                                <input class="form-control" id="disabledInput" type="text" placeholder="NO KAD PENGENALAN" name="noic" 
+													value="<?php echo $_SESSION['User'];?>"  > 
+							</div> -->
+                            
+                            
+                            <form role="form" action="addmaklumat1.php" method="POST">
+                            <div class="form-group">
+                                            <label>NAMA</label>
+                                            <input class="form-control" type="text" name="nama" onkeyup="this.value = this.value.toUpperCase();" value="<?php echo $row['nama'] ?>" readonly> 
+                                            
+                            </div>
+										
+								
+                          <!--  <div class="form-group">
+                                            <label>NO. KAD PENGENALAN</label>
+                                            <input class="form-control" type="text">
+                                     <p class="help-block">(XXXXXXX-XX-XXXX)</p>
+                                        </div> -->
+							<div class="form-group">
+                                            <label>NO. PELAJAR </label>
+                                            <input class="form-control" type="text" name="nopelajar" value="<?php echo $row['nopelajar'] ?>" onkeyup="this.value = this.value.toUpperCase();" readonly>
+                                         
+                            </div>					         
+                                      
+							
+				  
+								  
+                            </form>
+                            </div>
+					<?php
+		}
+		
+		?>
+	 
+		
                         </div>
-						<div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                        </div>
-                        <div class="panel-footer">
-                            Panel Footer
-                        </div> -->
                     </div>
+					
+					
                 </div>
-<!-- <div class="col-md-4 col-sm-4">
-                    <div class="panel panel-info">					
-                        <div class="panel-heading">
-                            Primary Panel
-                        </div>
-                        <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                        </div>
-						<div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                        </div>
-                        <div class="panel-footer">
-                            Panel Footer
-                        </div>
-                    </div>
-                </div> -->
+				 
+      
+</div>
 </div>
 <div id="footer-sec">
          <div class="container">

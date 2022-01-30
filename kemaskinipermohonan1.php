@@ -1,5 +1,9 @@
-﻿<?php
-session_start();	
+<?php	
+require_once('connection.php');
+session_start();
+$sql1 = "SELECT * FROM permohonan WHERE noic = '".$_GET['noic']."'"; 
+$query=$conn->query($sql1) or die ("ERROR: {conn->error}");
+$row = $query->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -55,8 +59,7 @@ session_start();
 			 <div class="col-md-8">
 			
 			<h1><b>SISTEM PERMOHONAN PENGAMBILAN TRANSKRIP</b></h1>
-			
-			<?php
+				<?php
 			echo ' SELAMAT DATANG ' . $_SESSION['User'];
 			?>
 <br><br>
@@ -67,6 +70,7 @@ session_start();
         <!-- /. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
+                 <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     
 					<li>
@@ -87,7 +91,7 @@ session_start();
                                 <a href="semakmohon.php"><i class="fa fa-desktop "></i>STATUS PERMOHONAN</a>
                             </li>
 							<li>
-                        <a href="login.php"><i class="fa fa-sign-in " value=""> </i>LOG KELUAR <br> <?php echo '( ' . $_SESSION['User'];
+                        <a href="login.php"><i class="fa fa-sign-in "></i>LOG KELUAR <br> <?php echo '( ' . $_SESSION['User'];
 						?> <?php echo ')'?></a>
                     </li>
 							
@@ -96,65 +100,109 @@ session_start();
 
             </div>
 
+            </div>
+
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
-            <div class="row">
+	
+           
+                <div class="row">
                     <div class="col-md-12">
-					<h1 class="page-head-line">PAPAN MUKA</h1>
-                       
+                        <h1 class="page-head-line">MAKLUMAT PEMOHON</h1>
+                       <!-- <h1 class="page-subhead-line">This is dummy text , you can replace it with your original text. </h1> -->
+
                     </div>
+					<br>
                 </div>
-			<div class="col-md-8">
-				<center><h1 >TATACARA PERMOHONAN SIJIL</h1>
-				 <img src="assets/img/Tatacara Penggunaan Sistem Sijil.jpg" alt="Service">
-				 </div>
-				 
-				<div class="col-md-4">
-                   <div class="panel panel-primary">				
-                       <div class="panel-heading">
-                            PERHATIAN
-                        </div>
-						
-                           <img src="assets/img/Nota Sistem Tuntutan Sijil.jpg" alt="Service" disabled>
-                       
-						<!--	
-                        <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                        </div>
-						<div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                        </div>
-                        <div class="panel-footer">
-                            Panel Footer
+                <!-- /. ROW  -->
+                <div class="row">
+            <div class="col-md-12">
+			
+               <div class="panel panel-info">
+			   
+                      <!--  <div class="panel-heading">
+                           BASIC FORM
                         </div> -->
-                    </div>
-                </div>
-<!-- <div class="col-md-4 col-sm-4">
-                    <div class="panel panel-info">					
-                        <div class="panel-heading">
-                            Primary Panel
+						 <div class="row">
+						<div class="col-md-6">
+						
+                         <div class="panel-body">
+						
+                            <form role="form" action="updatepermohonan.php" method="POST">
+							<div class="form-group">
+                                                <label for="disabledInput">NO. KAD PENGENALAN</label>
+                                                <input class="form-control" STYLE='font-weight: bold' id="disabledInput" type="text" placeholder="" name="noic" 
+												value="<?php echo $row['noic']  ?>" readonly>
+                            </div>
+										<div class="form-group">
+                                        <label>NAMA</label>
+                                            <input class="form-control"  STYLE='font-weight: bold' name="nama" type="text" value="<?php echo $row['nama'] ?>" readonly>                                   
+                                        </div>
+										 <label>JENIS SIJIL DIPOHON</label>
+										<div class="form-group">
+                                       
+                                            <input class="form-control" type="text" STYLE='font-weight: bold' name="jenis_sijil" placeholder="TIDAK BERKENAAN" value="<?php echo $row['jenis_sijil']  ?>" readonly>                                   
+                                        </div>
+										<div class="form-group">
+                                       
+                                            <input class="form-control" type="text" STYLE='font-weight: bold' name="jenis_sijil1" placeholder="TIDAK BERKENAAN" value="<?php echo $row['jenis_sijil1']  ?>" readonly>                                   
+                                        </div>
+										<div class="form-group">                                      
+                                            <input class="form-control" type="text" STYLE='font-weight: bold' name="jenis_sijil2" placeholder="TIDAK BERKENAAN" value="<?php echo $row['jenis_sijil2']  ?>" readonly>                                   
+                                        </div>
+										<div class="form-group">                                    
+                                            <input class="form-control" type="text" STYLE='font-weight: bold' name="jenis_sijil3" placeholder="TIDAK BERKENAAN" value="<?php echo $row['jenis_sijil3']  ?>" readonly>                                   
+                                        </div>
+										<div class="form-group">
+									  <label for="sel1">STATUS</label>
+									  <select class="form-control" id="sel1" name="status"  onkeyup="this.value = this.value.toUpperCase();" >
+											<option selected>SILA PILIH</option>
+											<option>BELUM SELESAI</option>
+											<option>BOLEH AMBIL DI JTM</option>
+											<option>SIJIL BERMASALAH</option>
+									
+									  </select>
+							</div>
+										<div class="form-group">
+                                            <label>TARIKH</label>
+                                            <input class="form-control" type="text" STYLE='font-weight: bold' name="tarikh" value="<?php echo $row['tarikh'] ?>" readonly>
+                                       </div>
+										
+                                   
+                                 
+                                            
+                                  
+                               
+                                      <center> <button type="submit" name="submit" value="submit" class="btn btn-success">KEMASKINI</button>
+
+                                    </form>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                        </div>
-						<div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                        </div>
-                        <div class="panel-footer">
-                            Panel Footer
-                        </div>
-                    </div>
-                </div> -->
-</div>
-<div id="footer-sec">
+						</div>
+						</div>
+                            </div>
+					
+            
+            <!-- /. PAGE INNER  -->
+        </div>
+		
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+	
+    <!-- /. WRAPPER  -->
+ </div>
+
+ </div>
+ 
+ <div id="footer-sec">
          <div class="container">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="footer-contact">
                                 <h2>Alamat</h2>
                                 <p><i class="fa fa-map-marker-alt"></i>Institut latihan perindustrian, Jalan 3, KKIP Selatan, 88460, Kota Kinabalu, Sabah </p>
-                                <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
+                                <p><i class="fa fa-phone"></i>+012 345 67890</p>
                                 <p><i class="fa fa-envelope"></i>ilpkk@gov.edu.my</p>
                                 <div class="footer-social">
 									 <div class="topbar-social">
@@ -191,7 +239,6 @@ session_start();
                     </div>
                 </div>
     </div>
-   
     <!-- /. FOOTER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
@@ -200,13 +247,8 @@ session_start();
     <script src="assets/js/bootstrap.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-       <!-- CUSTOM SCRIPTS -->
+    <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
-	 <!-- WIZARD SCRIPTS -->
-    <script src="assets/js/wizard/modernizr-2.6.2.min.js"></script>
-    <script src="assets/js/wizard/jquery.cookie-1.3.1.js"></script>
-    <script src="assets/js/wizard/jquery.steps.js"></script>
-    
 
 
 </body>

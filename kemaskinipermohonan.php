@@ -1,7 +1,9 @@
-﻿<?php
+<?php	
 require_once('connection.php');
 session_start();
-
+$sql = "SELECT * FROM permohonan WHERE noic = '".$_GET['noic']."'"; 
+$query=$conn->query($sql) or die ("ERROR: {conn->error}");
+$row = $query->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +59,7 @@ session_start();
 			 <div class="col-md-8">
 			
 			<h1><b>SISTEM PERMOHONAN PENGAMBILAN TRANSKRIP</b></h1>
-			<?php
+				<?php
 			echo ' SELAMAT DATANG ' . $_SESSION['User'];
 			?>
 <br><br>
@@ -72,13 +74,13 @@ session_start();
                 <ul class="nav" id="main-menu">
                     
 					<li>
-                           <a href="index.php"><i class="fa fa-desktop "></i>PAPAN MUKA</a>
+                           <a href="index2.php"><i class="fa fa-desktop "></i>PAPAN MUKA</a>
                     </li>
 					<li>
-                           <a href="info2.php"><i class="fa fa-desktop "></i>MAKLUMAT PERIBADI</a>
+                           <a href="senaraipengguna.php"><i class="fa fa-desktop "></i>SENARAI PENGGUNA</a>
                     </li>             
                     <li>
-                        <a href="permohonan.php"><i class="fa fa-desktop "></i>PERMOHONAN TRANSKRIP</a>
+                        <a href="senaraimaklumatpemohon.php"><i class="fa fa-desktop "></i>SENARAI MAKLUMAT</a>
                         
                     </li>
                      <!--<li>
@@ -86,7 +88,7 @@ session_start();
                          <ul class="nav nav-second-level">
                            -->
                              <li>
-                                <a href="semakmohon.php"><i class="fa fa-desktop "></i>STATUS PERMOHONAN</a>
+                                <a href="semakpermohonan.php"><i class="fa fa-desktop "></i>SEMAK PERMOHONAN</a>
                             </li>
 							<li>
                         <a href="login.php"><i class="fa fa-sign-in "></i>LOG KELUAR <br> <?php echo '( ' . $_SESSION['User'];
@@ -103,105 +105,83 @@ session_start();
         </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
+	
            
                 <div class="row">
                     <div class="col-md-12">
-					
-                        <h1 class="page-head-line">MAKLUMAT PERIBADI </h1>
-			
+                        <h1 class="page-head-line">MAKLUMAT PEMOHON</h1>
                        <!-- <h1 class="page-subhead-line">This is dummy text , you can replace it with your original text. </h1> -->
 
                     </div>
+					<br>
                 </div>
                 <!-- /. ROW  -->
-               
-		<?php
-		$sql = "SELECT * FROM pelajar WHERE noic='".$_SESSION['User']."'";
-		$result = $conn->query($sql); 
-		while($row = $result->fetch_assoc())
-		{
-		?>
-	 <div class="row">
-                    <div class="col-md-10">
+                                                
+                <!-- /. ROW  -->
+				
+                <div class="row">
+                    <div class="col-md-8">
                          <div class="panel panel-info">
                         
                         <div class="panel-body">
-                            <form role="form">
-							
+                            <form role="form" action="updatepermohonan.php" method="POST">
 							<div class="form-group">
-                                                <label for="disabledInput">NO. KAD PENGENALAN</label>
-                                                <input class="form-control" id="disabledInput" STYLE='font-weight: bold' type="text" placeholder="NO KAD PENGENALAN" name="noic" 
-													value="<?php echo $_SESSION['User'];?>" readonly required>
-												
+                                      <label>NO. KAD PENGENALAN</label>
+                                      <input class="form-control" STYLE='font-weight: bold' type="text" name="noic" value="<?php echo $row['noic']  ?>" readonly>
                             </div>
-                            <div class="form-group">
-                                            <label>NAMA</label>
-                                            <input class="form-control" STYLE='font-weight: bold' type="text" name="nama" value="<?php echo $row['nama'] ?>" readonly required>
-                                            <!--<p class="help-block">(NAMA DALAM KAD PENGENALAN)</p> -->
+							<div class="form-group">
+                                      <label>NAMA</label>
+                                      <input class="form-control"  STYLE='font-weight: bold' type="text" name="nama"  value="<?php echo $row['nama'] ?>" readonly>                                   
+                            </div>
+							<div class="form-group">
+                                      <label>NO. TEL</label>
+                                      <input class="form-control"  STYLE='font-weight: bold' type="text" name="notel"  value="<?php echo $row['notel'] ?>" readonly>                                   
+                            </div>
+							<div class="form-group">
+                                      <label>KURSUS</label>
+                                      <input class="form-control"  STYLE='font-weight: bold' type="text" name="kursus"  value="<?php echo $row['kursus'] ?>" readonly>                                   
+                            </div>
+							
+										 <label>JENIS SIJIL DIPOHON</label>
+							<div class="form-group">                                      
+                                        <input class="form-control" type="text" STYLE='font-weight: bold' name="jenis_sijil" placeholder="TIDAK BERKENAAN" value="<?php echo $row['jenis_sijil']  ?>" readonly>                                   
+                            </div>
+							<div class="form-group">
+                                       
+                                        <input class="form-control" type="text" STYLE='font-weight: bold' name="jenis_sijil1" placeholder="TIDAK BERKENAAN" value="<?php echo $row['jenis_sijil1']  ?>" readonly>                                   
+                            </div>
+							<div class="form-group">                                      
+                                        <input class="form-control" type="text" STYLE='font-weight: bold' name="jenis_sijil2" placeholder="TIDAK BERKENAAN" value="<?php echo $row['jenis_sijil2']  ?>" >                                   
+                            </div>
+							<div class="form-group">                                    
+                                        <input class="form-control" type="text" STYLE='font-weight: bold' name="jenis_sijil3" placeholder="TIDAK BERKENAAN" value="<?php echo $row['jenis_sijil3']  ?>" readonly>                                   
                             </div>
 										
-								
-                          <!--  <div class="form-group">
-                                            <label>NO. KAD PENGENALAN</label>
-                                            <input class="form-control" type="text">
-                                     <p class="help-block">(XXXXXXX-XX-XXXX)</p>
-                                        </div> -->
-							<div class="form-group">
-									  <label for="sel1">KURSUS PENGAJIAN</label>
-									 <input class="form-control" STYLE='font-weight: bold' type="text" name="nama" value="<?php echo $row['kursus'] ?>" readonly required>
-	
-							</div>
-							<div class="form-group">
-                                            <label>NO. PELAJAR</label>
-                                            <input class="form-control" STYLE='font-weight: bold' name="nopelajar" value="<?php echo $row['nopelajar'] ?>" readonly required>
-                                          <!--  <p class="help-block">CONTOH (BIXXXXXXXX)</p> -->
-                                        </div>
 										<div class="form-group">
-                                            <label>NO. TELEFON</label>
-                                            <input class="form-control" STYLE='font-weight: bold' type="text" name="notelefon" value="<?php echo $row['notel'] ?>" readonly required>
-                                    <!-- <p class="help-block">(CONTOH 010-XXXXXXX)</p> -->
-										</div>
-										 <div class="form-group">
-                                            <label>EMEL</label>
-                                            <input class="form-control" STYLE='font-weight: bold' type="text" name="emel" value="<?php echo $row['emel'] ?>" readonly required>
-                                    <!--        <p class="help-block">( JIKA ADA )</p> -->
-                                        </div><br>
-                                       
+                                            <label>TARIKH</label>
+                                            <input class="form-control" type="text" STYLE='font-weight: bold' name="tarikh" value="<?php echo $row['tarikh'] ?>" readonly>
+                                       </div>
+							<div class="form-group">
+									  <label for="sel1">STATUS</label>
+									  <select class="form-control" id="sel1" name="status"  onkeyup="this.value = this.value.toUpperCase();" >
+											<option selected>SILA PILIH</option>
+											<option>BELUM SELESAI</option>
+											<option>BOLEH AMBIL DI JTM</option>
+											<option>SIJIL BERMASALAH</option>
 									
-								<div class="form-group" >
-                                            <label>ALAMAT</label>
-                                            <input class="form-control" STYLE='font-weight: bold' rows="4" name="alamat" value="<?php echo $row['alamat'] ?>" readonly required>
-
-								</div>
-								<div class="form-group" >
-                                            <label>POSKOD</label>
-                                            <input class="form-control" STYLE='font-weight: bold' rows="4" name="poskod" value="<?php echo $row['poskod'] ?>" readonly required>
-
-								</div>
-								<div class="form-group" >
-                                            <label>DAERAH</label>
-                                            <input class="form-control" STYLE='font-weight: bold' rows="4" name="daerah" value="<?php echo $row['daerah'] ?>" readonly required>
-
-								</div>
-								<div class="form-group" >
-                                            <label>NEGERI</label>
-                                            <input class="form-control" STYLE='font-weight: bold' rows="4" name="negeri" value="<?php echo $row['negeri'] ?>" readonly required>
-
-								</div>
-                                 
-                                      
-					
-							
-							
-								  
-                            </form>
+									  </select>
+							</div>	
+								<div class="form-group">
+                                      <label>CATATAN</label>
+                                      <!-- <input class="form-control"  STYLE='font-weight: bold' type="text" name="catatan"  value="<?php echo $row['catatan'] ?>">   -->
+									<textarea class="form-control" name="catatan" rows="5" cols="40" value="<?php echo $row['catatan'] ?>"> <?php echo $row['catatan'] ?></textarea>									  
                             </div>
-			
-	 
-		
+                                      <center> <button type="submit" name="submit" value="submit" class="btn btn-success">KEMASKINI</button>
+
+                                    </form>
+                            </div>
                         </div>
                     </div>
-					<!--
 					<div class="col-md-4">
 					 <div class="panel panel-info">
                        <div class="panel-heading">
@@ -230,33 +210,37 @@ session_start();
                         </div>
                             </div>
                         </div>
-					</div>-->
+					</div>
+					
 					
                 </div>
 				 
-             		<?php
-		}
-		
-		?>     <!-- /. ROW  -->
+                 <!-- /. ROW  -->
 				 
            
             <!-- /. PAGE INNER  -->
-<div class="col-md-8">
-<center><a href="info1.php" button type="submit" class="btn btn-success">KEMASKINI MAKLUMAT </a>
-</div>
+
+        </div>		
+            
+            <!-- /. PAGE INNER  -->
         </div>
 		
-		
         <!-- /. PAGE WRAPPER  -->
-		
-  <div id="footer-sec">
+    </div>
+	
+    <!-- /. WRAPPER  -->
+ </div>
+
+ </div>
+ 
+ <div id="footer-sec">
          <div class="container">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="footer-contact">
                                 <h2>Alamat</h2>
                                 <p><i class="fa fa-map-marker-alt"></i>Institut latihan perindustrian, Jalan 3, KKIP Selatan, 88460, Kota Kinabalu, Sabah </p>
-                                <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
+                                <p><i class="fa fa-phone"></i>+012 345 67890</p>
                                 <p><i class="fa fa-envelope"></i>ilpkk@gov.edu.my</p>
                                 <div class="footer-social">
 									 <div class="topbar-social">
@@ -293,10 +277,6 @@ session_start();
                     </div>
                 </div>
     </div>
-
-	 
-    <!-- /. WRAPPER  -->
-   
     <!-- /. FOOTER  -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->

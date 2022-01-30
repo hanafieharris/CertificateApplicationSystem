@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();	
 ?>
 
@@ -57,7 +57,7 @@ session_start();
 			<h1><b>SISTEM PERMOHONAN PENGAMBILAN TRANSKRIP</b></h1>
 			
 			<?php
-			echo ' SELAMAT DATANG ' . $_SESSION['User'];
+			echo '<b> SELAMAT DATANG </b> '. $_SESSION['User'] ;
 			?>
 <br><br>
             </div>
@@ -70,13 +70,13 @@ session_start();
                 <ul class="nav" id="main-menu">
                     
 					<li>
-                           <a href="index.php"><i class="fa fa-desktop "></i>PAPAN MUKA</a>
+                           <a href="index2.php"><i class="fa fa-desktop "></i>PAPAN MUKA</a>
                     </li>
 					<li>
-                           <a href="info2.php"><i class="fa fa-desktop "></i>MAKLUMAT PERIBADI</a>
+                           <a href="senaraipengguna.php"><i class="fa fa-desktop "></i>SENARAI PENGGUNA</a>
                     </li>             
                     <li>
-                        <a href="permohonan.php"><i class="fa fa-desktop "></i>PERMOHONAN TRANSKRIP</a>
+                        <a href="senaraimaklumatpemohon.php"><i class="fa fa-desktop "></i>SENARAI MAKLUMAT</a>
                         
                     </li>
                      <!--<li>
@@ -84,10 +84,10 @@ session_start();
                          <ul class="nav nav-second-level">
                            -->
                              <li>
-                                <a href="semakmohon.php"><i class="fa fa-desktop "></i>STATUS PERMOHONAN</a>
+                                <a href="semakpermohonan.php"><i class="fa fa-desktop "></i>SEMAK PERMOHONAN</a>
                             </li>
 							<li>
-                        <a href="login.php"><i class="fa fa-sign-in " value=""> </i>LOG KELUAR <br> <?php echo '( ' . $_SESSION['User'];
+                        <a href="login.php"><i class="fa fa-sign-in "></i>LOG KELUAR <br> <?php echo '( ' . $_SESSION['User'];
 						?> <?php echo ')'?></a>
                     </li>
 							
@@ -105,7 +105,7 @@ session_start();
                        
                     </div>
                 </div>
-			<div class="col-md-8">
+				<div class="col-md-8">
 				<center><h1 >TATACARA PERMOHONAN SIJIL</h1>
 				 <img src="assets/img/Tatacara Penggunaan Sistem Sijil.jpg" alt="Service">
 				 </div>
@@ -113,7 +113,7 @@ session_start();
 				<div class="col-md-4">
                    <div class="panel panel-primary">				
                        <div class="panel-heading">
-                            PERHATIAN
+                           <center> PERHATIAN
                         </div>
 						
                            <img src="assets/img/Nota Sistem Tuntutan Sijil.jpg" alt="Service" disabled>
@@ -130,22 +130,11 @@ session_start();
                         </div> -->
                     </div>
                 </div>
-<!-- <div class="col-md-4 col-sm-4">
-                    <div class="panel panel-info">					
-                        <div class="panel-heading">
-                            Primary Panel
-                        </div>
-                        <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                        </div>
-						<div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-                        </div>
-                        <div class="panel-footer">
-                            Panel Footer
-                        </div>
-                    </div>
-                </div> -->
+        <!-- /. PAGE WRAPPER  -->
+		</div>
+	</div>
+    <!-- /. WRAPPER  -->
+</div>
 </div>
 <div id="footer-sec">
          <div class="container">

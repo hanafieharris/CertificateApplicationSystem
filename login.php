@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<?php
+require_once('connection.php');
+
+
+?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
@@ -32,46 +37,48 @@
             </div>
 			
 <style="background-color: #3669ad;">
-    <div class="container">
-	
+ 
+    <div class="container">															
         <div class="row text-center py-15">
 		
             <div class="col-md-12">
+			
 			   <img src="assets/img/JataNegara.png" style="width:120px;height:100px;"/> <img src="assets/img/ilpkk.png" style="width:170px;height:100px;" />
-			   
+			
 			   <h2 align="center"><b>INSTITUT LATIHAN PERINDUSTRIAN KOTA KINABALU</b></h2><br>
 			 <h3 align="center"><b>SISTEM PERMOHONAN PENGAMBILAN TRANSKRIP</b></h3><br>
+			
+			</div>
+			
 			          </div>
+					  
         </div>
-        
+           <button onclick="document.getElementById('id01').style.display='block'"  class= "btn btn-info">Log Masuk Pentadbir</button>
                            
-                        </div>
+                      
                 
                 
         </div>
     </div>
 	<div class="container">
 	 <div class="row">
-               <div class="col-md-4">
-			   <div class="imgcontainer">
+			<div class="col-md-6">
+			<div class="imgcontainer">
+					<img src="assets/img/avatar5.png" alt="Avatar" class="avatar"> <br><br>
+					<button onclick="document.getElementById('id03').style.display='block'"  class= "btn btn-success">Daftar Pelajar</button>
+			</div>
+			</div>
+			
+            <div class="col-md-6">
+			<div class="imgcontainer">
 								
-								<img src="assets/img/avatar6.png" alt="Avatar" class="avatar" ><br><br>
-								<button onclick="document.getElementById('id02').style.display='block'"  class= "btn btn-success">Log Masuk Pelajar</button> <br>
+				<img src="assets/img/avatar6.png" alt="Avatar" class="avatar" ><br><br>
+				<button onclick="document.getElementById('id02').style.display='block'"  class= "btn btn-success">Log Masuk Pelajar</button> <br>
 								
-								</div>
-								</div>
-				<div class="col-md-4">
-				<div class="imgcontainer">
-								<img src="assets/img/avatar4.png" alt="Avatar" class="avatar"> <br><br>
-								<button onclick="document.getElementById('id01').style.display='block'"  class= "btn btn-success">Log Masuk Pentadbir</button>
-								</div>
-				</div>
-				<div class="col-md-4">
-				<div class="imgcontainer">
-								<img src="assets/img/avatar5.png" alt="Avatar" class="avatar"> <br><br>
-								<button onclick="document.getElementById('id03').style.display='block'"  class= "btn btn-success">Daftar Pelajar</button>
-								</div>
-				</div>
+			</div>
+			</div>
+			
+				
 				
               
                                   
@@ -84,36 +91,33 @@
                         <p>ILPKK</p>
                         <h2>Institut Latihan Perindustrian Kota Kinabalu</h2>
                     </div> -->
+					<div class ="row">						
+					</div>				
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
+						
                             <div class="service-item">
-                                <img src="assets/img/ILP revise.png" alt="Service">
-                                <h3>VISI</h3>
-                                <p>
-                                    Menjadi Organisasi Peneraju Dalam Membangunkan Tenaga Kerja Yang Berdaya Saing
+                                <img src="assets/img/muka depan.png" alt="Service">
+                                <h3></h3>
+                                <p>                                 
                                 </p>
                               <!--  <a class="btn" href="">Learn More</a> -->
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="service-item">
-                                <img src="assets/img/ilpkk.png" alt="Service">
-                                <h3>MISI</h3>
-                                <p>
-                                    Mengeluarkan Tenaga Kerja Yang Berdaya Saing
-                                </p>
+                                <img src="assets/img/Contoh Situasi Permohonan Sijil.jpg" alt="Service">                               
                            <!--     <a class="btn" href="">Learn More</a> -->
                             </div>
                         </div>
+						 <!--
                         <div class="col-sm-4">
                             <div class="service-item">
-                                <img src="assets/img/ilpkk.png" alt="Service">
-                                <h3>OBJEKTIF</h3>
-                                <p>
-                                    Membantu Ke Arah Penggunaan Tenaga Manusia Yang Optimum Melalui Program Latihan Perindustrian
-                                </p>
+                                <img src="assets/img/Nota Sistem Tuntutan Sijil.jpg" alt="Service">
+                               
                               
                             </div>
+							-->
                         </div>
                         
                     </div>
@@ -167,11 +171,12 @@
                
   
             </div>
+			
 
 <div class="row">
 <div id="id01" class="modal1">
-  
-  <form class="modal-content animate" action="" method="post">
+
+  <form class="modal-content animate" action="processupp.php" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
  
@@ -179,36 +184,36 @@
 	
     <div class="container">
     <!--  <label for="uname"><b>No. Kad Pengenalan</b></label> -->
-	<div class="col-md-9">
-      <input type="text" placeholder="No. ID" name="uname" required>
+	<div class="col-md-5">
+	<div class="form-group">
+	<label>NO. ID</label><br>
+	<input type="text" placeholder="No ID" name="noid" required >
+	</div>
+ 
 	  
-	 <!-- <label for="uname"><b>Nama</b></label> 
-      <input type="text" placeholder="Enter Username" name="uname"  required> -->
-
-     <!-- <label for="psw"><b>Password</b></label> -->
-      <input type="password" placeholder="Kata Laluan" name="psw" required>
+	<div class="form-group">
+	<label>PASSWORD</label><br>
+	<input type="password" placeholder="Kata Laluan" name="pass" required >
+	</div>
+     
         
-      <button type="submit">Log Masuk</button>
+      <button type="submit" name="submit">LOG MASUK</button>
       
     </div>
-	<div class="col-md-3">
-	 <p class="lead">This is an example of lead body copy.</p>
-                            <p>This is an example of standard paragraph text. This is an example of <a href="#">link anchor text</a> within body copy.</p>
-                            <p>
-                                <small>This is an example of small, fine print text.</small>
-                            </p>
-                            <p>
-                                <strong>This is an example of strong, bold text.</strong>
-                            </p>
-                            <p>
-                                <em>This is an example of emphasized, italic text.</em>
-                            </p>
-                            <br />
-                            <h4>Alignment Helpers</h4>
-                            <p class="text-left">Left aligned text.</p>
-                            <p class="text-center">Center aligned text.</p>
-                            <p class="text-right">Right aligned text.</p>
-	</div>
+	<div  class="col-md-7">
+	 <div  class="panel panel-info">
+                       <div  class="panel-heading">
+                            <center><h3><strong>PERHATIAN</strong></h3>   
+                        </div>
+						
+                      
+                           
+                        <div class="panel-body">
+                            <img src="assets/img/Tatacara Penggunaan Sistem Sijil.jpg" alt="Service">
+                        </div>
+                            
+                        </div>
+	 </div>
 	</div>
 	
     <div class="container">
@@ -229,35 +234,42 @@
 
     <div class="container">
     <!--  <label for="uname"><b>No. Kad Pengenalan</b></label> -->
-	<div class ="col-md-9">
-      <input type="text" placeholder="No. Kad Pengenalan (Contoh 680529126541)" name="noic" required >
+	<div class ="col-md-5">
+	<div class="form-group">
+ <label>NOMBOR KAD PENGENALAN</label><br>
+   <input type="text" placeholder="Contoh (680529126541)" name="noic" required >
+	<?php if(isset ($noicerror) & !empty($noicerror))
+											{ echo $namaerror; } ?>
+ </div>
+     <div class="form-group">
+ <label>KATA LALUAN</label><br>
+    <input type="password" placeholder="Kata Laluan" name="psw" required >
+	<?php if(isset ($noicerror) & !empty($noicerror))
+											{ echo $namaerror; } ?>
+ </div> 
 	  
 	 <!-- <label for="uname"><b>Nama</b></label>
       <input type="text" placeholder="Kata Laluan" name="pass"  required> -->
 
      <!-- <label for="psw"><b>Password</b></label> -->
-      <input type="password" placeholder="Kata Laluan" name="psw" required >
+     
         
       <button type="submit" name="submit">Log Masuk</button>
 	  
      </div> 
-	 <div class="col-md-3">
-	 <p class="lead">This is an example of lead body copy.</p>
-                            <p>This is an example of standard paragraph text. This is an example of <a href="#">link anchor text</a> within body copy.</p>
-                            <p>
-                                <small>This is an example of small, fine print text.</small>
-                            </p>
-                            <p>
-                                <strong>This is an example of strong, bold text.</strong>
-                            </p>
-                            <p>
-                                <em>This is an example of emphasized, italic text.</em>
-                            </p>
-                            <br />
-                            <h4>Alignment Helpers</h4>
-                            <p class="text-left">Left aligned text.</p>
-                            <p class="text-center">Center aligned text.</p>
-                            <p class="text-right">Right aligned text.</p>
+	 <div  class="col-md-7">
+	 <div  class="panel panel-info">
+                       <div  class="panel-heading">
+                            <center><h3><strong>PERHATIAN</strong></h3>   
+                        </div>
+						
+                      
+                           
+                        <div class="panel-body">
+                            <img src="assets/img/Tatacara Penggunaan Sistem Sijil.jpg" alt="Service">
+                        </div>
+                            
+                        </div>
 	 </div>
 	 <div class="container">
 	
@@ -279,45 +291,46 @@
     </div> -->
 
     <div class="container">
-`<?php
-	if(@$_GET['empty']==true)
-	{
-?>
-	<div class="alert-light text-danger text center py-3">
-<?php
-	}		
-?>	
- <div class="col-md-9" style="padding-top:20px;" >
-    <input type="text" placeholder="No. Kad Pengenalan (Contoh 680529126541)" name="noic" >
+
+ <div class="col-md-5" style="padding-top:10px;" >
+ <div class="form-group">
+ <label>NOMBOR KAD PENGENALAN</label><br>
+    <input class="form-control" type="text" placeholder="Contoh (680529126541)" name="noic" >
+	<?php if(isset ($noicerror) & !empty($noicerror))
+											{ echo $namaerror; } ?>
+ </div>
+  <div class="form-group">
+ <label>KATA LALUAN</label><br>
+    <input class="form-control" type="password" placeholder="KATA LALUAN" name="psw" >
+	<?php if(isset ($noicerror) & !empty($noicerror))
+											{ echo $namaerror; } ?>
+ </div>
+ <div class="form-group">
+ <label>SAHKAN KATA LALUAN</label><br>
+    <input class="form-control" type="password" placeholder="PENGESAHAN KATA LALUAN" name="psw2" >
+	<?php if(isset ($noicerror) & !empty($noicerror))
+											{ echo $namaerror; } ?>
+ </div>
 	  
 	 <!-- <label for="uname"><b>Nama</b></label> -->
-      <input type="text" placeholder="Nama Dalam Kad Pengenalan" name="nama"  > 
 
      <!-- <label for="psw"><b>Password</b></label> -->
-      <input type="password" placeholder="Kata Laluan" name="psw" >
-	  
-	   <input type="password" placeholder="Sahkan Kata Laluan" name="psw2">
+     
         
       <button type="submit" name="submit">Daftar</button>
     </div>
- <div class="col-md-3">
+ <div class="col-md-7">
 	  
-	<h1 >PERHATIAN</h1>
-                            <h4>This is an example of standard paragraph text. This is an example of <a href="#">link anchor text</a> within body copy.</p>
-                            <h4>
-                                <small>This is an example of small, fine print text.</small>
-                            </p>
-                            <p>
-                                <strong>This is an example of strong, bold text.</strong>
-                            </p>
-                            <p>
-                                <em>This is an example of emphasized, italic text.</em>
-                            </p>
-                            <br />
-                            <h4>Alignment Helpers</h4>
-                            <p class="text-left">Left aligned text.</p>
-                            <p class="text-center">Center aligned text.</p>
-                            <p class="text-right">Right aligned text.</p>
+	<div class="panel panel-info">
+                       <div class="panel-heading">
+                           <center><h3><strong>PERHATIAN</strong></h3>   
+                        </div>
+						
+                        <div class="panel-body">
+                           
+                      <img src="assets/img/Tatacara Penggunaan Sistem Sijil.jpg" alt="Service">
+                            </div>
+                        </div>
 </div>
     <div class="container">
 	

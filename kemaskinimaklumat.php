@@ -1,7 +1,10 @@
-﻿<?php
+<?php
 require_once('connection.php');
-session_start();
-
+session_start();	
+$sql = "SELECT * FROM pelajar WHERE noic = '".$_GET['noic']."'"; 
+$query=$conn->query($sql) or die ("ERROR: {conn->error}");
+$row = $query->fetch_assoc();
+	
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +28,12 @@ session_start();
     <link href="assets/css/wizard/normalize.css" rel="stylesheet" />
     <link href="assets/css/wizard/wizardMain.css" rel="stylesheet" />
     <link href="assets/css/wizard/jquery.steps.css" rel="stylesheet" />-->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="img/favicon.ico" rel="icon">
 </head>
 <body>
     <div id="wrapper">
@@ -51,9 +60,9 @@ session_start();
 			 <div class="col-md-8">
 			
 			<h1><b>SISTEM PERMOHONAN PENGAMBILAN TRANSKRIP</b></h1>
-			<?php
-			echo ' SELAMAT DATANG ' . $_SESSION['User'];
-			?>
+				<!-- <a href="message-task.html" class="btn btn-info" title="New Message"><b> </b><i class="fa fa-envelope-o fa-2x"></i></a> -->
+                <!--     <a href="message-task.html" class="btn btn-primary" title="New Task"><b> </b><i class="fa fa-bars fa-2x"></i></a> -->
+           <!-- <a href="login.html" class="btn btn-danger" title="Logout">LOG KELUAR</a> -->
 <br><br>
             </div>
 			
@@ -62,17 +71,16 @@ session_start();
         <!-- /. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
-                 <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
+                  <ul class="nav" id="main-menu">
                     
 					<li>
-                           <a href="index.php"><i class="fa fa-desktop "></i>PAPAN MUKA</a>
+                           <a href="index2.php"><i class="fa fa-desktop "></i>PAPAN MUKA</a>
                     </li>
 					<li>
-                           <a href="info2.php"><i class="fa fa-desktop "></i>MAKLUMAT PERIBADI</a>
+                           <a href="senaraipengguna.php"><i class="fa fa-desktop "></i>SENARAI PENGGUNA</a>
                     </li>             
                     <li>
-                        <a href="permohonan.php"><i class="fa fa-desktop "></i>PERMOHONAN TRANSKRIP</a>
+                        <a href="senaraimaklumatpemohon.php"><i class="fa fa-desktop "></i>SENARAI MAKLUMAT</a>
                         
                     </li>
                      <!--<li>
@@ -80,16 +88,15 @@ session_start();
                          <ul class="nav nav-second-level">
                            -->
                              <li>
-                                <a href="semakmohon.php"><i class="fa fa-desktop "></i>STATUS PERMOHONAN</a>
+                                <a href="semakpermohonan.php"><i class="fa fa-desktop "></i>SEMAK PERMOHONAN</a>
                             </li>
 							<li>
-                        <a href="login.php"><i class="fa fa-sign-in "></i>LOG KELUAR</a>
+                        <a href="login.php"><i class="fa fa-sign-in "></i>LOG KELUAR <br> <?php echo '( ' . $_SESSION['User'];
+						?> <?php echo ')'?></a>
                     </li>
 							
                           
                 </ul>
-
-            </div>
 
             </div>
 
@@ -99,31 +106,31 @@ session_start();
            
                 <div class="row">
                     <div class="col-md-12">
-					
-                        <h1 class="page-head-line">MAKLUMAT PERIBADI</h1>
+                        <h1 class="page-head-line">MAKLUMAT PEMOHON</h1>
                        <!-- <h1 class="page-subhead-line">This is dummy text , you can replace it with your original text. </h1> -->
 
                     </div>
+					<br>
                 </div>
                 <!-- /. ROW  -->
-               
- <div class="row">
+				
+                <div class="row">
                     <div class="col-md-8">
                          <div class="panel panel-info">
                         
                         <div class="panel-body">
-                            <form role="form">
-							
+                            <form role="form" action="updatemaklumat.php" method="POST">
 							<div class="form-group">
                                                 <label for="disabledInput">NO. KAD PENGENALAN</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="NO KAD PENGENALAN" name="noic" 
-													value="<?php echo $_SESSION['User'];?>"	readonly>
-												
+                                                <input class="form-control" id="disabledInput" type="text" placeholder="" name="noic" 
+												value="<?php echo $row['noic']  ?>" readonly>
                             </div>
                             <div class="form-group">
                                             <label>NAMA</label>
-                                            <input class="form-control" type="text" name="nama" value="" readonly>
-                                            <!--<p class="help-block">(NAMA DALAM KAD PENGENALAN)</p> -->
+                                            <input class="form-control" type="text" name="nama" onkeyup="this.value = this.value.toUpperCase();" 
+											value="<?php echo $row['nama'] ?>" required > 
+                                            <p class="help-block">(NAMA DALAM KAD PENGENALAN)</p> 
+											
                             </div>
 										
 								
@@ -133,55 +140,67 @@ session_start();
                                      <p class="help-block">(XXXXXXX-XX-XXXX)</p>
                                         </div> -->
 							<div class="form-group">
-									  <label for="sel1">KURSUS PENGAJIAN</label>
-									  <input class="form-control" type="text" name="nama" value="" readonly>
-	
-							</div>
+                                            <label>NO. PELAJAR </label>
+                                            <input class="form-control" type="text" name="nopelajar" value="<?php echo $row['nopelajar']?>" onkeyup="this.value = this.value.toUpperCase();" >
+                                          <p class="help-block">CONTOH (BIXXXXXXXX)</p> 
+                            </div>
 							<div class="form-group">
-                                            <label>NO. PELAJAR</label>
-                                            <input class="form-control" name="nopelajar" value="" readonly>
-                                          <!--  <p class="help-block">CONTOH (BIXXXXXXXX)</p> -->
-                                        </div>
-										<div class="form-group">
+                                            <label>KURSUS </label>
+                                            <input class="form-control" type="text" name="kursus" value="<?php echo $row['kursus']?>" onkeyup="this.value = this.value.toUpperCase();" readonly >
+                                          <p class="help-block">CONTOH (BIXXXXXXXX)</p> 
+                            </div>
+							
+							<div class="form-group">
                                             <label>NO. TELEFON</label>
-                                            <input class="form-control" type="text" name="notelefon" value="" readonly>
+                                            <input class="form-control" type="text" name="notel" value="<?php echo $row['notel'] ?>" >
                                     <!-- <p class="help-block">(CONTOH 010-XXXXXXX)</p> -->
                             </div>
 										 <div class="form-group">
                                             <label>EMEL</label>
-                                            <input class="form-control" type="text" name="emel" value="" readonly>
+                                            <input class="form-control" type="text" name="emel" value="<?php echo $row['emel'] ?>" >
                                     <!--        <p class="help-block">( JIKA ADA )</p> -->
-                                        </div><br>
+                                        </div>
                                        
 									
 								<div class="form-group" >
                                             <label>ALAMAT</label>
-                                            <input class="form-control" rows="4" name="alamat" value="" readonly>
-
+                                            <input class="form-control" rows="4" name="alamat" value="<?php echo $row['alamat'] ?>" onkeyup="this.value = this.value.toUpperCase();">
 								</div>
-																<div class="form-group" >
+								<div class="form-group" >
                                             <label>POSKOD</label>
-                                            <input class="form-control" rows="4" name="alamat1" value="" readonly>
-
+                                            <input class="form-control" rows="4" name="poskod"  value="<?php echo $row['poskod'] ?>" onkeyup="this.value = this.value.toUpperCase();"  >
 								</div>
-																<div class="form-group" >
+								<div class="form-group" >
                                             <label>DAERAH</label>
-                                            <input class="form-control" rows="4" name="alamat2" value="" readonly>
-
+                                            <input class="form-control" rows="4" name="daerah" value="<?php echo $row['daerah'] ?>"  onkeyup="this.value = this.value.toUpperCase();" >
 								</div>
+								<div class="form-group">
+									  <label for="sel1">NEGERI</label>
+									  <select class="form-control" id="sel1" name="negeri" value="<?php echo $row['negeri'] ?>" onkeyup="this.value = this.value.toUpperCase();" >
+											<option selected>SILA PILIH NEGERI</option>
+											<option>SABAH</option>
+											<option>SARAWAK</option>
+											<option>KEDAH</option>
+											<option>PAHANG</option>
+											<option>PERLIS</option>
+											<option>KELANTAN</option>
+											<option>MELAKA</option>
+											<option>JOHOR</option>
+											<option>NEGERI SEMBILAN</option>
+											<option>TERENGGANU</option>
+											<option>PULAU PINANG</option>
+											<option>WILAYAH PERSEKUTUAN KUALA LUMPUR</option>
+											<option>WILAYAH PERSEKUTUAN PUTRAJAYA</option>
+											<option>WILAYAH PERSEKUTUAN LABUAN</option>
+									  </select>
+							</div>
                                  
                                       
-							<center><a href="info1.php" button type="submit" class="btn btn-success">KEMASKINI MAKLUMAT </a>
-							
-							
+				<center>	 <button type="submit" name="submit" value="submit" class="btn btn-success">KEMASKINI</button>
+				  
 								  
                             </form>
                             </div>
-			
-			
-		
-		
-		 
                         </div>
                     </div>
 					<div class="col-md-4">
@@ -214,8 +233,8 @@ session_start();
                         </div>
 					</div>
 					
+					
                 </div>
-	
 				 
                  <!-- /. ROW  -->
 				 
@@ -223,8 +242,9 @@ session_start();
             <!-- /. PAGE INNER  -->
 
         </div>
+		
         <!-- /. PAGE WRAPPER  -->
- 
+     
 	 
     <!-- /. WRAPPER  -->
    
